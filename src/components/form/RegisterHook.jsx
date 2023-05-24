@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import InputHook from "../input/inputHook";
+import RadioHook from "../radio/RadioHook";
 
 const RegisterHook = () => {
   const {
@@ -17,24 +18,66 @@ const RegisterHook = () => {
       onSubmit={handleSubmit(onSubmitHandler)}
       className="max-w-[300px] mx-auto my-10"
     >
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 mb-5">
         <label htmlFor="username" className="cursor-pointer">
           Username
         </label>
-        {/* <input
-          type="text"
-          id="username"
-          placeholder="Enter your username"
-          className="p-4 border border-gray-100 rounded-lg outline-none bg-white transition-all focus:border-blue-500"
-        /> */}
         <InputHook
           name="username"
           placeholder="Enter your username"
           id="username"
           control={control}
+          type="text"
         ></InputHook>
-        <p className="text-red-500 text-sm">Please enter you username </p>
+        <p className="text-red-500 text-sm">Please enter your username </p>
       </div>
+
+      <div className="flex flex-col gap-3 mb-5">
+        <label htmlFor="email" className="cursor-pointer">
+          Email address
+        </label>
+        <InputHook
+          name="email"
+          placeholder="Enter your email"
+          id="email"
+          control={control}
+          type="email"
+        ></InputHook>
+        <p className="text-red-500 text-sm">Please enter your email </p>
+      </div>
+
+      <div className="flex flex-col gap-3 mb-5">
+        <label htmlFor="password" className="cursor-pointer">
+          Password
+        </label>
+        <InputHook
+          name="password"
+          placeholder="Enter your password"
+          id="password"
+          control={control}
+          type="password"
+        ></InputHook>
+        <p className="text-red-500 text-sm">Please enter your password </p>
+      </div>
+
+      <div className="flex flex-col gap-3 mb-5">
+        <label className="cursor-pointer">Gender</label>
+        <div className="flex items-center gap-5">
+          <div className="flex items-center gap-x-3">
+            <RadioHook control={control} name="gender" value="male"></RadioHook>
+            <span>Male</span>
+          </div>
+          <div className="flex items-center gap-x-3">
+            <RadioHook
+              control={control}
+              name="gender"
+              value="female"
+            ></RadioHook>
+            <span>Female</span>
+          </div>
+        </div>
+      </div>
+
       <button className="w-full bg-blue-500 text-white rounded-lg mt-5 font-semibold p-5">
         Submit
       </button>
