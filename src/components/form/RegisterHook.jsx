@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import InputHook from "../input/inputHook";
 import RadioHook from "../radio/RadioHook";
+import CheckboxHook from "../checkbox/CheckboxHook";
 
 const RegisterHook = () => {
   const {
@@ -76,6 +77,14 @@ const RegisterHook = () => {
             <span>Female</span>
           </div>
         </div>
+      </div>
+
+      <div className=" mb-5">
+        <CheckboxHook
+          control={control}
+          name="term"
+          text="I accept terms and conditions "
+        ></CheckboxHook>
       </div>
 
       <button className="w-full bg-blue-500 text-white rounded-lg mt-5 font-semibold p-5">
