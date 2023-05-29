@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import InputHook from "../input/inputHook";
 import RadioHook from "../radio/RadioHook";
 import CheckboxHook from "../checkbox/CheckboxHook";
+import DropdownHook from "../dropdown/DropdownHook";
 
 const RegisterHook = () => {
   const {
@@ -77,6 +78,10 @@ const RegisterHook = () => {
             <span>Female</span>
           </div>
         </div>
+      </div>
+      <div className="flex flex-col gap-3 mb-5">
+        <label className="cursor-pointer">Are you</label>
+        <DropdownHook></DropdownHook>
       </div>
 
       <div className=" mb-5">
