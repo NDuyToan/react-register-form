@@ -9,6 +9,8 @@ const RegisterHook = () => {
     register,
     handleSubmit,
     control,
+    getValues,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -81,7 +83,11 @@ const RegisterHook = () => {
       </div>
       <div className="flex flex-col gap-3 mb-5">
         <label className="cursor-pointer">Are you</label>
-        <DropdownHook></DropdownHook>
+        <DropdownHook
+          control={control}
+          setValue={setValue}
+          name="job"
+        ></DropdownHook>
       </div>
 
       <div className=" mb-5">
