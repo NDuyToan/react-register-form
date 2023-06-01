@@ -4,6 +4,24 @@ import RadioHook from "../radio/RadioHook";
 import CheckboxHook from "../checkbox/CheckboxHook";
 import DropdownHook from "../dropdown/DropdownHook";
 
+const dropdownData = [
+  {
+    id: 1,
+    value: "teacher",
+    text: "Teacher",
+  },
+  {
+    id: 2,
+    value: "doctor",
+    text: "Doctor",
+  },
+  {
+    id: 3,
+    value: "developer",
+    text: "Developer",
+  },
+];
+
 const RegisterHook = () => {
   const {
     register,
@@ -87,6 +105,7 @@ const RegisterHook = () => {
           control={control}
           setValue={setValue}
           name="job"
+          data={dropdownData}
         ></DropdownHook>
       </div>
 

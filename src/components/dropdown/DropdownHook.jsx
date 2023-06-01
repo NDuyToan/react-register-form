@@ -3,19 +3,25 @@ import { useState } from "react";
 import { useWatch } from "react-hook-form";
 import useClickOutSide from "../../hooks/useClickOutSide";
 
-const DropdownHook = ({ control, setValue, name }) => {
+const DropdownHook = ({
+  control,
+  setValue,
+  name,
+  data,
+  dropdownLabel = "Select your job",
+}) => {
   const { show, setShow, nodeRef } = useClickOutSide();
-  const [label, setLabel] = useState("Select your job");
+  const [label, setLabel] = useState(dropdownLabel);
 
-  // useWatch({
-  //   control,
-  //   name: "job",
-  //   defaultValue: "",
-  // });
+  useWatch({
+    control,
+    name: "job",
+    defaultValue: "",
+  });
 
-  const handleClickDropdownItem = (e) => {
-    setValue(name, e.target.dataset.value);
-    setLabel(e.target.textContent);
+  const handleClickDropdownItem = (item) => {
+    setValue(name, item.value);
+    setLabel(item.text);
     setShow(false);
   };
   return (
@@ -30,27 +36,15 @@ const DropdownHook = ({ control, setValue, name }) => {
             show ? "" : "opacity-0 invisible"
           }`}
         >
-          <div
-            className="p-5 cursor-pointer hover:bg-gray-100"
-            onClick={handleClickDropdownItem}
-            data-value="teacher"
-          >
-            Teacher
-          </div>
-          <div
-            className="p-5 cursor-pointer hover:bg-gray-100"
-            onClick={handleClickDropdownItem}
-            data-value="developer"
-          >
-            Developer
-          </div>
-          <div
-            className="p-5 cursor-pointer hover:bg-gray-100"
-            onClick={handleClickDropdownItem}
-            data-value="doctor"
-          >
-            Doctor
-          </div>
+          {data?.map((item) => (
+            <div
+              key={item.id}
+              className="p-5 cursor-pointer hover:bg-gray-100"
+              onClick={() => handleClickDropdownItem(item)}
+            >
+              {item.text}
+            </div>
+          ))}
         </div>
       </div>
     </div>
