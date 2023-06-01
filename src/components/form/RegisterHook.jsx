@@ -4,6 +4,9 @@ import RadioHook from "../radio/RadioHook";
 import CheckboxHook from "../checkbox/CheckboxHook";
 import DropdownHook from "../dropdown/DropdownHook";
 
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
 const dropdownData = [
   {
     id: 1,
@@ -22,6 +25,23 @@ const dropdownData = [
   },
 ];
 
+const schema = yup
+  .object({
+    username: yup.string().required("Please enter your username"),
+    email: yup
+      .string()
+      .email("Wrong format")
+      .required("Please enter your email"),
+    password: yup
+      .string()
+      .required("Please enter your password")
+      .matches(/^(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$/, {
+        message:
+          "Your password must have at least 8 characters, 1 uppercase, 1 lower case,",
+      }),
+  })
+  .required();
+
 const RegisterHook = () => {
   const {
     register,
@@ -30,7 +50,11 @@ const RegisterHook = () => {
     getValues,
     setValue,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  console.log("errors", errors);
 
   const onSubmitHandler = (value) => {
     console.log("onSubmitHandler", value);
@@ -51,7 +75,9 @@ const RegisterHook = () => {
           control={control}
           type="text"
         ></InputHook>
-        <p className="text-red-500 text-sm">Please enter your username </p>
+        {errors.username && (
+          <p className="text-red-500 text-sm">{errors.username.message} </p>
+        )}
       </div>
 
       <div className="flex flex-col gap-3 mb-5">
@@ -65,7 +91,9 @@ const RegisterHook = () => {
           control={control}
           type="email"
         ></InputHook>
-        <p className="text-red-500 text-sm">Please enter your email </p>
+        {errors.email && (
+          <p className="text-red-500 text-sm">{errors.email.message} </p>
+        )}
       </div>
 
       <div className="flex flex-col gap-3 mb-5">
@@ -79,7 +107,10 @@ const RegisterHook = () => {
           control={control}
           type="password"
         ></InputHook>
-        <p className="text-red-500 text-sm">Please enter your password </p>
+        {errors.password && (
+          <p className="text-red-500 text-sm">{errors.password.message} </p>
+        )}
+        {/* <p className="text-red-500 text-sm">Please enter your password </p> */}
       </div>
 
       <div className="flex flex-col gap-3 mb-5">
