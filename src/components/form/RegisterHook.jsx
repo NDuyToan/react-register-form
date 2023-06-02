@@ -55,15 +55,32 @@ const RegisterHook = () => {
     control,
     getValues,
     setValue,
-    formState: { errors },
+    reset,
+    formState: { errors, isValid, isSubmitting },
   } = useForm({
-    resolver: yupResolver(schema),
+    // resolver: yupResolver(schema),
+    mode: "onChange",
   });
 
-  console.log("errors", errors);
-
   const onSubmitHandler = (value) => {
-    console.log("onSubmitHandler", value);
+    if (!isValid) {
+      return;
+    } else {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve();
+          console.log("onSubmitHandler", value);
+          reset({
+            username: "",
+            password: "",
+            email: "",
+            gender: "male",
+            job: "",
+            term: false,
+          });
+        }, 2000);
+      });
+    }
   };
   return (
     <form
@@ -162,8 +179,17 @@ const RegisterHook = () => {
         )}
       </div>
 
-      <button className="w-full bg-blue-500 text-white rounded-lg mt-5 font-semibold p-5">
-        Submit
+      <button
+        className={`w-full bg-blue-500 text-white rounded-lg mt-5 font-semibold p-5 ${
+          isSubmitting ? "opacity-50" : ""
+        }`}
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? (
+          <div className="w-5 h-5 border-2 border-white rounded-full border-t-transparent mx-auto animate-spin"></div>
+        ) : (
+          "Submit"
+        )}
       </button>
     </form>
   );
