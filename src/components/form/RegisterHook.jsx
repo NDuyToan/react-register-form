@@ -39,6 +39,12 @@ const schema = yup
         message:
           "Your password must have at least 8 characters, 1 uppercase, 1 lower case,",
       }),
+    gender: yup
+      .string()
+      .required("Please select your gender")
+      .oneOf(["male", "female"], "You can only select Male or Female"),
+    term: yup.boolean().required("Please agree with term"),
+    job: yup.string().required("Please select your job"),
   })
   .required();
 
@@ -110,7 +116,6 @@ const RegisterHook = () => {
         {errors.password && (
           <p className="text-red-500 text-sm">{errors.password.message} </p>
         )}
-        {/* <p className="text-red-500 text-sm">Please enter your password </p> */}
       </div>
 
       <div className="flex flex-col gap-3 mb-5">
@@ -129,6 +134,9 @@ const RegisterHook = () => {
             <span>Female</span>
           </div>
         </div>
+        {errors.gender && (
+          <p className="text-red-500 text-sm">{errors.gender.message} </p>
+        )}
       </div>
       <div className="flex flex-col gap-3 mb-5">
         <label className="cursor-pointer">Are you</label>
@@ -138,6 +146,9 @@ const RegisterHook = () => {
           name="job"
           data={dropdownData}
         ></DropdownHook>
+        {errors.job && (
+          <p className="text-red-500 text-sm">{errors.job.message} </p>
+        )}
       </div>
 
       <div className=" mb-5">
@@ -146,6 +157,9 @@ const RegisterHook = () => {
           name="term"
           text="I accept terms and conditions "
         ></CheckboxHook>
+        {errors.term && (
+          <p className="text-red-500 text-sm">{errors.term.message} </p>
+        )}
       </div>
 
       <button className="w-full bg-blue-500 text-white rounded-lg mt-5 font-semibold p-5">
